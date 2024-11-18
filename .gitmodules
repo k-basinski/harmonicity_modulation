@@ -1,0 +1,3 @@
+[submodule "paradigms/behavioral/inharmonicon"]
+	path = paradigms/behavioral/inharmonicon
+	url = https://github.com/k-basinski/inharmonicon
