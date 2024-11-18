@@ -1,6 +1,8 @@
 from psychopy import core, visual, data, event, sound, prefs
 import numpy as np
 import pandas as pd
+import inharmonicon as ih
+
 
 prefs.hardware["audioLib"] = ["PTB"]
 prefs.hardware["audioLatencyMode"] = 3
@@ -32,22 +34,23 @@ def beep(increment):
         s1f = base_f
         s2f = base_f + increment
     
+    s1h = ih.Harmonics(s1f)
+    s2h = ih.Harmonics(s2f)
+    s1 = ih.Sound(s1h, length=.07)
+    s2 = ih.Sound(s2h, length=.07)
     # beep
-    # beep
-    s1 = sound.Sound(s1f, stereo=False, secs=0.15)
-    s2 = sound.Sound(s2f, stereo=False, secs=0.15)
     core.wait(.1)
     s1.play()
     core.wait(.5)
     s2.play()
     core.wait(.3)
     
-
     return which_higher
 
 
 for increment in staircase:
     message.text = f'Jeśli pierwszy dźwięk wyżej, <strzałka w lewo>.\nJeśli drugi dźwięk wyżej, <strzałka w prawo>.\n\nIncrement: {increment}...'
+    message.draw()
     win.flip()
     target = beep(increment)
 
